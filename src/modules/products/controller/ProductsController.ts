@@ -129,7 +129,7 @@ export default class ProductsController {
     try {
       const deleteProduct = new DeleteProductService();
 
-      await deleteProduct.execute({ id });
+      await deleteProduct.execute({id});
 
       return res.status(204).json([]);
     } catch (error) {
@@ -138,5 +138,5 @@ export default class ProductsController {
         .status(500)
         .json({ error: 'Error interno no servidor ao deletar informações!' });
     }
-  };
+  }
 }

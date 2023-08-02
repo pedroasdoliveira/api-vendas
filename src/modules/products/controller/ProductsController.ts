@@ -49,13 +49,12 @@ export default class ProductsController {
 
       return res.status(200).json(products);
     } catch (error) {
-      console.error(error);
       if (error instanceof AppError) {
         return res.status(error.statusCode).json(error)
       } else {
         return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao pegar informações!' });
+        .json({ msg: 'Error interno no servidor ao pegar informações!', error: error });
       }
     }
   };
@@ -70,13 +69,12 @@ export default class ProductsController {
 
       return res.status(200).json(product);
     } catch (error) {
-      console.error(error);
       if (error instanceof AppError) {
         return res.status(error.statusCode).json(error)
       } else {
         return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao pegar a informação!' });
+        .json({ msg: 'Error interno no servidor ao pegar a informação!', error: error });
       }
     }
   };
@@ -98,13 +96,12 @@ export default class ProductsController {
 
       return res.status(201).json(product);
     } catch (error) {
-      console.error(error);
       if (error instanceof AppError) {
         return res.status(error.statusCode).json(error)
       } else {
         return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao criar informações!' });
+        .json({ msg: 'Error interno no servidor ao criar informações!', error: error });
       }
     }
   };
@@ -128,13 +125,12 @@ export default class ProductsController {
 
       return res.status(200).json(product);
     } catch (error) {
-      console.error(error);
       if (error instanceof AppError) {
         return res.status(error.statusCode).json(error)
       } else {
         return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao atualizar informações!' });
+        .json({ msg: 'Error interno no servidor ao atualizar informações!', error: error });
       }
     }
   };
@@ -149,13 +145,12 @@ export default class ProductsController {
 
       return res.status(204).json([]);
     } catch (error) {
-      console.error(error);
       if (error instanceof AppError) {
         return res.status(error.statusCode).json(error)
       } else {
         return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao deletar informações!' });
+        .json({ msg: 'Error interno no servidor ao deletar informações!', error: error });
       }
     }
   }

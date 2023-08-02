@@ -1,10 +1,11 @@
-import { Request, Response } from 'express';
-import ListProductService from '../services/ListProductsService';
 import AppError from '@shared/errors/AppError';
-import ShowProductService from '../services/ShowProductService';
+import { Request, Response } from 'express';
+
 import CreateProductService from '../services/CreateProductService';
-import UpdateProductService from '../services/UpdateProductService';
 import DeleteProductService from '../services/DeleteProductService';
+import ListProductService from '../services/ListProductsService';
+import ShowProductService from '../services/ShowProductService';
+import UpdateProductService from '../services/UpdateProductService';
 
 interface IRequest {
   name: string;

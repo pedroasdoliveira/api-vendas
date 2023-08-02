@@ -11,7 +11,7 @@ class ListProductService {
     const products = await productsRepository.find();
 
     if (!products) {
-      throw new AppError("Nenhum dado da entidade foi encontrado", 500);
+      throw new AppError("Nenhum dado da entidade Products foi encontrado", 500);
     }
 
     return products;

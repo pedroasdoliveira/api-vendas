@@ -50,9 +50,13 @@ export default class ProductsController {
       return res.status(200).json(products);
     } catch (error) {
       console.error(error);
-      return res
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error)
+      } else {
+        return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao puxar informações!' });
+        .json({ error: 'Error interno no servidor ao pegar informações!' });
+      }
     }
   };
 
@@ -67,9 +71,13 @@ export default class ProductsController {
       return res.status(200).json(product);
     } catch (error) {
       console.error(error);
-      return res
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error)
+      } else {
+        return res
         .status(500)
-        .json({ error: 'Error interno no servidor ao puxar informações!' });
+        .json({ error: 'Error interno no servidor ao pegar a informação!' });
+      }
     }
   };
 
@@ -91,9 +99,13 @@ export default class ProductsController {
       return res.status(201).json(product);
     } catch (error) {
       console.error(error);
-      return res
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error)
+      } else {
+        return res
         .status(500)
         .json({ error: 'Error interno no servidor ao criar informações!' });
+      }
     }
   };
 
@@ -117,9 +129,13 @@ export default class ProductsController {
       return res.status(200).json(product);
     } catch (error) {
       console.error(error);
-      return res
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error)
+      } else {
+        return res
         .status(500)
         .json({ error: 'Error interno no servidor ao atualizar informações!' });
+      }
     }
   };
 
@@ -134,9 +150,13 @@ export default class ProductsController {
       return res.status(204).json([]);
     } catch (error) {
       console.error(error);
-      return res
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error)
+      } else {
+        return res
         .status(500)
         .json({ error: 'Error interno no servidor ao deletar informações!' });
+      }
     }
   }
 }

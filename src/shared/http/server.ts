@@ -2,6 +2,7 @@ import 'reflect-metadata';
 
 import cors from 'cors';
 import express from 'express';
+import "express-async-errors";
 
 import Errors from '@shared/middlewares/Errors';
 import routes from './routes';

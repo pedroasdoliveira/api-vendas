@@ -1,6 +1,8 @@
-import AppError from '@shared/errors/AppError';
-import { compare, hash } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { getCustomRepository } from 'typeorm';
+
+import AppError from '@shared/errors/AppError';
+import JwtTokenAccess from '@shared/helpers/token';
 
 import User from '../typeorm/entities/User';
 import { UserRepository } from '../typeorm/repositories/UsersRepository';
@@ -10,12 +12,16 @@ interface IRequest {
   password: string;
 }
 
-// interface IResponse {
-//   user: User;
-// }
+interface IResponse {
+  user: User;
+  token: string;
+}
 
 class CreateSessionsService {
-  public execute = async ({ email, password }: IRequest): Promise<User> => {
+  public execute = async ({
+    email,
+    password,
+  }: IRequest): Promise<IResponse> => {
     const usersRepository = getCustomRepository(UserRepository);
 
     const user = await usersRepository.findByEmail(email);
@@ -26,9 +32,18 @@ class CreateSessionsService {
     const passwordConfirmed = await compare(password, user.password);
     if (!passwordConfirmed) {
       throw new AppError('Usuário ou senha incorretos!', 401);
-    }
+    } 
 
-    return user;
+    const jwtAccess = new JwtTokenAccess();
+    
+    const token = jwtAccess.createAccessToken(user);
+
+    // const token = sign({}, '671ff328a17871b41a862cf83c6c215c', {
+    //   subject: user.id,
+    //   expiresIn: '1d',
+    // });
+
+    return { user, token };
   };
 }
 

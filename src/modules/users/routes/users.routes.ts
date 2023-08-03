@@ -2,12 +2,13 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate'; // Lib para validação de dados de Requisição
 
 import UsersController from '../controller/UsersController';
+import isAuthenticated from '../middlewares/Authenticated';
 
 const usersRouter = Router();
 
 const userController = new UsersController();
 
-usersRouter.get('/', userController.index);
+usersRouter.get('/', isAuthenticated ,userController.index);
 
 usersRouter.post(
   '/',

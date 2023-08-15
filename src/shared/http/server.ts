@@ -10,6 +10,7 @@ import { errors } from 'celebrate';
 
 import './bootstrap';
 import Errors from '@shared/middlewares/Errors';
+import uploadConfig from '@config/upload';
 import routes from './routes';
 import '@shared/typeorm';
 
@@ -27,6 +28,8 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+
+app.use('/files', express.static(uploadConfig.directory)); // rota do servido para o Front consumir as imagens salvas
 
 app.use(routes);
 

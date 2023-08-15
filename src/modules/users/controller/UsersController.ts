@@ -63,6 +63,7 @@ export default class UsersController {
   public index = async (req: Request, res: Response): Promise<Response> => {
     try {
       const listUsers = new ListUserService();
+      console.log(req.user.id);
 
       const user = await listUsers.execute();
 

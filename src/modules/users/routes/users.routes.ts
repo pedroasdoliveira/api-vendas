@@ -2,7 +2,7 @@ import { Router } from 'express';
 import { celebrate, Joi, Segments } from 'celebrate'; // Lib para validação de dados de Requisição
 
 import UsersController from '../controller/UsersController';
-import isAuthenticated from '../middlewares/Authenticated';
+import isAuthenticated from '@shared/middlewares/Authenticated';
 
 const usersRouter = Router();
 

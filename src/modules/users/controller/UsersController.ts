@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 
 import CreateUserService from '../services/CreateUserService';
 import ListUserService from '../services/ListUsersService';
+import UpdateUserAvatarService from '../services/UpdateUserAvatarService';
 
 interface IRequest {
   name: string;
@@ -107,4 +108,26 @@ export default class UsersController {
       }
     }
   };
+
+  public UpdateAvatar = async (req: Request, res: Response): Promise<Response> => {
+    try {
+      const updateAvatar = new UpdateUserAvatarService();
+
+      const user = await updateAvatar.execute({
+        user_id: req.user.id,
+        avatarFilename: req.file?.filename
+      });
+
+      return res.status(200).json(user);
+    } catch (error) {
+      if (error instanceof AppError) {
+        return res.status(error.statusCode).json(error);
+      } else {
+        return res.status(500).json({
+          msg: 'Error interno no servidor ao pegar informações!',
+          error: error,
+        });
+      }
+    }
+  }
 }

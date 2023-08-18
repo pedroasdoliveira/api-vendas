@@ -16,14 +16,14 @@ interface Entities {
 @Entity('user_tokens')
 class UserToken {
   @PrimaryGeneratedColumn('uuid')
-  private id: string;
+   id: string;
 
   @Column()
   @Generated('uuid')
-  private token: string;
+   token: string;
 
   @Column()
-  private user_id: string;
+   user_id: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -31,35 +31,35 @@ class UserToken {
   @UpdateDateColumn()
   updated_at: Date;
 
-  constructor({ id, token, user_id }: Entities) {
-    this.id = id;
-    this.token = token;
-    this.user_id = user_id;
-  }
+  // constructor({ id, token, user_id }: Entities) {
+  //   this.id = id;
+  //   this.token = token;
+  //   this.user_id = user_id;
+  // }
 
-  public getId(): string {
-    return this.id;
-  }
+  // public getId(): string {
+  //   return this.id;
+  // }
 
-  public setId(id: string): void {
-    this.id = id;
-  }
+  // public setId(id: string): void {
+  //   this.id = id;
+  // }
 
-  public getToken(): string {
-    return this.token;
-  }
+  // public getToken(): string {
+  //   return this.token;
+  // }
 
-  public setToken(token: string): void {
-    this.token = token;
-  }
+  // public setToken(token: string): void {
+  //   this.token = token;
+  // }
 
-  public getUser_id(): string {
-    return this.user_id;
-  }
+  // public getUser_id(): string {
+  //   return this.user_id;
+  // }
 
-  public setUser_id(user_id: string): void {
-    this.user_id = user_id;
-  }
+  // public setUser_id(user_id: string): void {
+  //   this.user_id = user_id;
+  // }
 }
 
 export default UserToken;

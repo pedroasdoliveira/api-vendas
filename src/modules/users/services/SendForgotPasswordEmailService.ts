@@ -20,13 +20,22 @@ class SendForgotPasswordEmailService {
       throw new AppError('Usuário com o e-mail passado não existe!');
     }
 
-    const token = await tokenRepository.generate(user.id);
+    const { token } = await tokenRepository.generate(user.id);
     console.log('Token: %s', token);
 
     await EtherialMail.sendMail({
-      to: email,
-      body: `Solicitação de redefinição de senha recebida: ${token?.token}`,
-      subject: "E-mail de recuperação de senha"
+      to: {
+        name: user.name,
+        email: user.email
+      },
+      subject: "E-mail de recuperação de senha",
+      templateData: {
+        template: `Olá {{name}}: {{token}}`,
+        variables: {
+          name: user.name,
+          token
+        }
+      }
     })
   };
 }

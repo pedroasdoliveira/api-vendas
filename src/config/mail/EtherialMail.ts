@@ -1,14 +1,25 @@
 import nodemailer from 'nodemailer';
+import handlebarsMailTemplates from './HandlebarsMailTemplates';
+
+import { IParseMailTemplate } from './HandlebarsMailTemplates';
+
+interface IMailContact {
+  name: string;
+  email: string;
+}
 
 interface ISendMail {
-  to: string;
-  body: string;
+  to: IMailContact;
+  from?: IMailContact;
   subject: string;
+  templateData: IParseMailTemplate;
 }
 
 export default class EtherialMail {
-  static async sendMail({ to, body, subject }: ISendMail): Promise<void> {
+  static async sendMail({ to, from, subject, templateData }: ISendMail): Promise<void> {
     const account = await nodemailer.createTestAccount();
+
+    const mailTemplate = new handlebarsMailTemplates();
 
     const transporter = nodemailer.createTransport({
       host: account.smtp.host,
@@ -21,10 +32,16 @@ export default class EtherialMail {
     });
 
     const message = await transporter.sendMail({
-      from: "equipe@vendas.com.br",
-      to,
+      from: {
+        name: from?.name || "Equipe Vendas",
+        address: from?.email || "equipe@vendas.com.br"
+      },
+      to: {
+        name: to.name,
+        address: to.email
+      },
       subject,
-      text: body
+      html: await mailTemplate.parse(templateData)
     });
 
     console.log('Message sent: %s', message.messageId);
